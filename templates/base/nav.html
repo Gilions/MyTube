@@ -1,0 +1,17 @@
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+    <a class="navbar-brand" href="/"><span style="color:red">My</span>Tube</a>
+    <nav class="my-2 my-md-0 mr-md-3">
+        {% if user.is_authenticated %}
+        <a class="p-2 text-dark" href="{% url 'new' %}">Новая запись</a>
+        Пользователь: <a href="{% url 'profile' user.username %}"><strong >{{ user.username }}</strong></a>.
+        {% if user.username == "Gilions" %}
+        <a class="p-2 text-dark" href="/admin">Администрирование</a>
+        {% endif %}
+        <a class="p-2 text-dark" href="{% url 'password_change' %}">Изменить пароль</a>
+        <a class="p-2 text-dark" href="{% url 'logout' %}">Выйти</a>
+        {% else %}
+        <a class="p-2 text-dark" href="{% url 'login' %}">Войти</a> |
+        <a class="p-2 text-dark" href="{% url 'signup' %}">Регистрация</a>
+        {% endif %}
+    </nav>
+</nav>
