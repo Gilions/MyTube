@@ -29,7 +29,7 @@ class PostsTest(TestCase):
 
         # Подписываемся на автора
         self.client_3.get(reverse('profile_follow',
-                          kwargs={"username": 'Tc'}))
+                                  kwargs={"username": 'Tc'}))
 
     # Удаляем записи
     def tearDown(self):
@@ -58,9 +58,9 @@ class PostsTest(TestCase):
     def test_new_post(self):
         # Проверяем наличие поста на страницах профиля, поста и группы
         urls = (
-         reverse("profile", kwargs={'username': 'Tc'}),
-         reverse('post', kwargs={'username': 'Tc', 'post_id': 1}),
-         reverse('group_posts', kwargs={'slug': 't_group'}),)
+            reverse("profile", kwargs={'username': 'Tc'}),
+            reverse('post', kwargs={'username': 'Tc', 'post_id': 1}),
+            reverse('group_posts', kwargs={'slug': 't_group'}),)
         for url in urls:
             self.checking_posts(url, 'Hello test')
 
@@ -75,10 +75,10 @@ class PostsTest(TestCase):
         # Проверяем изменился ли пост на главной станице
         # на страницах профиля, поста, группы
         urls = (
-         reverse('index'),
-         reverse("profile", kwargs={'username': 'Tc'}),
-         reverse('post', kwargs={'username': 'Tc', 'post_id': 1}),
-         reverse('group_posts', kwargs={'slug': 't_group'}),)
+            reverse('index'),
+            reverse("profile", kwargs={'username': 'Tc'}),
+            reverse('post', kwargs={'username': 'Tc', 'post_id': 1}),
+            reverse('group_posts', kwargs={'slug': 't_group'}),)
         for url in urls:
             self.checking_posts(url, 'post edit')
 
@@ -152,10 +152,10 @@ class PostsTest(TestCase):
 
         # Попытка подписаться не авторизованным пользователем
         response = self.client_2.get(reverse('profile_follow',
-                                     kwargs={"username": 'Tc'}))
+                                             kwargs={"username": 'Tc'}))
         self.assertEqual(response.status_code, 302)
 
         # Пробуем отписаться
         response = self.client_2.get(reverse('profile_unfollow',
-                                     kwargs={"username": 'Tc'}))
+                                             kwargs={"username": 'Tc'}))
         self.assertEqual(response.status_code, 302)

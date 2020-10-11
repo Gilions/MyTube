@@ -11,12 +11,12 @@ class PostForm(ModelForm):
         fields = ("text", "group", "image")
 
         labels = {
-         "text": "Новое сообщение",
-         "group": "Выберите группу"
-         }
+            "text": "Новое сообщение",
+            "group": "Выберите группу"
+        }
         help_texts = {
             "text": "Поле обязательное для заполнения.",
-            }
+        }
 
 
 class CommentForm(ModelForm):
@@ -26,4 +26,4 @@ class CommentForm(ModelForm):
 
         help_texts = {
             "text": "Поле обязательное для заполнения.",
-            }
+        }

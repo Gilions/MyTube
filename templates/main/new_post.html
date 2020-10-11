@@ -1,44 +1,49 @@
-{% extends "base/base.html" %}
-{% block title %}Новая запись{% endblock %}
-{% block content %}
+{% extends "base/base.html" %} {% block title %}Новая запись{% endblock %}
+{%block content %}
 {% load user_filters %}
 <div class="row justify-content-center">
-    <div class="col-md-8 p-5">
-        <div class="card">
-            {% if edit %}
-                <div class="card-header">Редактировать запись</div>
-            {% else %}
-                <div class="card-header">Добавить запись</div>
-            {% endif %}
+  <div class="col-md-8 p-5">
+    <div class="card">
+      {% if edit %}
+      <div class="card-header">Редактировать запись</div>
+      {% else %}
+      <div class="card-header">Добавить запись</div>
+      {% endif %}
 
-            <div class="card-body">
-                    <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {% for field in form %}
-                        <div class="form-group row">
-                            <label for="{{ field.id_for_label }}" class="col-md-4 col-form-label text-md-right">{{ field.label }}</label>
-                            <div class="col-md-6">
-                                {{ field | addclass:"form-control" }}
-                                {% if field.help_text %}
-                                <small id="{{ field.id_for_label }}-help" class="form-text text-muted">{{ field.help_text|safe }}</small>
-                                {% endif %}
-                            </div>
-                        </div>
-                    {% endfor %}
-                    <div class="col-md-6 offset-md-4">
-                        {% if edit %}
-                            <button type="submit" class="btn btn-primary">
-                                Сохранить
-                            </button>
-                        {% else %}
-                            <button type="submit" class="btn btn-primary">
-                                Добавить
-                            </button>
-                        {% endif %}
-                    </div>
-                </form>
-            </div> <!-- card body -->
-        </div> <!-- card -->
-    </div> <!-- col -->
-</div> <!-- row -->
-    {% endblock %}
+      <div class="card-body">
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %} {% for field in form %}
+          <div class="form-group row">
+            <label
+              for="{{ field.id_for_label }}"
+              class="col-md-4 col-form-label text-md-right"
+              >{{ field.label }}</label
+            >
+            <div class="col-md-6">
+              {{ field | addclass:"form-control" }} {% if field.help_text %}
+              <small
+                id="{{ field.id_for_label }}-help"
+                class="form-text text-muted"
+                >{{ field.help_text|safe }}</small
+              >
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+          <div class="col-md-6 offset-md-4">
+            {% if edit %}
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            {% else %}
+            <button type="submit" class="btn btn-primary">Добавить</button>
+            {% endif %}
+          </div>
+        </form>
+      </div>
+      <!-- card body -->
+    </div>
+    <!-- card -->
+  </div>
+  <!-- col -->
+</div>
+<!-- row -->
+{% endblock %}
