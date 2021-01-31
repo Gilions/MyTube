@@ -1,22 +1,29 @@
-attrs==19.3.0             # via pytest
-certifi==2019.9.11        # via requests
-chardet==3.0.4            # via requests
-django==2.2.6
-idna==2.8                 # via requests
-importlib-metadata==1.5.0  # via pluggy, pytest
-more-itertools==8.2.0     # via pytest
-packaging==20.1           # via pytest
-pillow==7.0.0
-pluggy==0.13.1            # via pytest
-py==1.8.1                 # via pytest
-pyparsing==2.4.6          # via packaging
+astroid==2.4.2
+attrs==19.3.0
+Django==2.2.9
+django-debug-toolbar==2.2
+djangorestframework==3.12.1
+flake8==3.8.4
+iniconfig==1.0.0
+isort==5.3.0
+lazy-object-proxy==1.4.3
+mccabe==0.6.1
+more-itertools==8.4.0
+packaging==20.4
+Pillow==7.2.0
+pluggy==0.13.1
+py==1.9.0
+pycodestyle==2.6.0
+pyflakes==2.2.0
+pylint==2.6.0
+pyparsing==2.4.7
+pytest==6.0.0
 pytest-django==3.8.0
-pytest==5.3.5             # via pytest-django
-pytz==2019.3              # via django
-requests==2.22.0
-six==1.14.0               # via packaging
+python-dotenv==0.14.0
+pytz==2020.1
+six==1.15.0
 sorl-thumbnail==12.6.3
-sqlparse==0.3.0           # via django
-urllib3==1.25.6           # via requests
-wcwidth==0.1.8            # via pytest
-zipp==2.2.0               # via importlib-metadata
+sqlparse==0.3.1
+toml==0.10.1
+whitenoise==5.2.0
+wrapt==1.12.1
