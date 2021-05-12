@@ -1,6 +1,6 @@
 # MyTube
 
-Проект разрабатывался в рамках обучения Python, framework Django на курсах Python разработчик. Yandex практикум
+Проект разрабатывался в рамках обучения языку Python, framework Django на курсах Python разработчик. Yandex практикум.
 
 
 ##  Установка
