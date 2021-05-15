@@ -28,10 +28,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '178.154.254.173',
-    'localhost',
-    'www.wakeup.ml',
-    'wakeup.ml'
+    '*'
 ]
 
 
