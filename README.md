@@ -7,7 +7,10 @@
 ## Системные требования
 _____
 
-Python 3, Django 2.2.9
+- Python 3
+- Django 2.2.9
+- NGINX - Gunicorn
+- PostgreSQL
 
 ##  Установка
 ______
