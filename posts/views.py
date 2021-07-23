@@ -1,5 +1,3 @@
-import datetime as dt
-
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
@@ -42,16 +40,15 @@ def new_post(request):
     """
     Записываем данные в базу.
     """
-    form = PostForm()
-    if request.method == "POST":
-        form = PostForm(request.POST, files=request.FILES or None)
-        if form.is_valid():
-            instance = form.save(commit=False)
-            instance.author = request.user
-            instance.save()
-            return redirect("index")
-    context = {"form": form}
-    return render(request, "main/new_post.html", context)
+    form = PostForm(request.POST, files=request.FILES or None)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.author = request.user
+        instance.save()
+        return redirect("index")
+    return render(request, "main/new_post.html", {
+        "form": form
+    })
 
 
 def profile(request, username):
@@ -82,15 +79,14 @@ def post_view(request, username, post_id):
     """
     Производим поиск статьи автора, данные передаем в post.html
     """
-    user = get_object_or_404(User, username=username)
-    follower_count = Follow.objects.filter(user=user.id).count()
-    following_count = Follow.objects.filter(author=user.id).count()
-    post = get_object_or_404(Post, pk=post_id, author__username=username)
-    form = CommentForm()
-    comments = post.comments.all()
-    context = {"post": post, "comments": comments, "form": form,
-               "follower_count": follower_count, "profile": user,
-               "following_count": following_count}
+    post = get_object_or_404(Post, pk=post_id)
+    context = {
+        "post": post,
+        "comments": post.comments.all(),
+        "form": CommentForm(),
+        "profile": post.author,
+        "follower_count": Follow.objects.filter(user=post.author.id).count(),
+        "following_count": Follow.objects.filter(author=post.author.id).count()}
 
     return render(request, "main/post.html", context)
 
@@ -103,24 +99,20 @@ def post_edit(request, username, post_id):
     redirect на страницу поста.
     Если False, redirect на страницу поста без возможности редактировать
     """
-    edit = True
+    if username != request.user.username:
+        return redirect("post", username, post_id)
     post = get_object_or_404(Post, pk=post_id, author__username=username)
-
-    if post.author != request.user:
-        return redirect("post", username, post_id)
-    if request.method == "POST":
-        form = PostForm(request.POST or None, files=request.FILES or None,
+    form = PostForm(request.POST or None, files=request.FILES or None,
                         instance=post)
-        instance = form.save(commit=False)
-        instance.pub_date = dt.datetime.now()
-        instance.save()
-        return redirect("post", username, post_id)
+    if form.is_valid():
+        form.save()
+        return redirect("post", post_id)
 
-    context = {
-        "edit": edit,
+    return render(request, 'main/new_post.html', {
+        "edit": True,
         "form": PostForm(instance=post),
-        "post": post}
-    return render(request, 'main/new_post.html', context)
+        "post": post
+    })
 
 
 @login_required
@@ -128,7 +120,7 @@ def add_comment(request, username, post_id):
     post = get_object_or_404(Post, pk=post_id, author__username=username)
     form = CommentForm()
     if request.method == "POST":
-        form = CommentForm(request.POST or None)
+        form =  CommentForm(request.POST or None)
         if form.is_valid():
             instance = form.save(commit=False)
             instance.author = request.user
@@ -161,7 +153,6 @@ def follow_index(request):
         "page": page,
         "paginator": paginator
     }
-
     return render(request, "main/follow.html", context)
 
 

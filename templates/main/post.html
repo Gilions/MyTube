@@ -1,57 +1,53 @@
 {% extends "base/base.html" %}
 {% block content %}
-<main role="main" class="container">
+  <main role="main" class="container">
     <div class="row">
-            <div class="col-md-3 mb-3 mt-1">
-                <div class="card">
-                        <div class="card-body">
-                                <div class="h2">
-                                    <!-- Имя автора -->
-                                    {{ profile.get_full_name  }}
-                                </div>
-                                <div class="h3 text-muted">
-                                     <!-- username автора -->
-                                     @{{ profile.username }}
-                                </div>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-                                        <div class="h6 text-muted">
-                                            Подписчиков: {{ following_count }} <br />
-                                            Подписан: {{ follower_count }}
-                                        </div>
-                                </li>
-                                <li class="list-group-item">
-                                        <div class="h6 text-muted">
-                                            <!--Количество записей -->
-                                            Записей: {{ profile.posts.count }}
-                                        </div>
-                                </li>
-                        </ul>
-                </div>
+      <div class="col-md-3 mb-3 mt-1">
+        <div class="card">
+          <div class="card-body">
+            <div class="h2">
+              {{ profile.get_full_name  }}
+            </div>
+            <div class="h3 text-muted">
+              @{{ profile.username }}
+            </div>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <div class="h6 text-muted">
+                Подписчиков: {{ following_count }} <br />
+                Подписан: {{ follower_count }}
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="h6 text-muted">
+                Записей: {{ profile.posts.count }}
+              </div>
+            </li>
+          </ul>
         </div>
-
-        <div class="col-md-9">
-            <!-- Пост -->
-                <div class="card mb-3 mt-1 shadow-sm">
-
-                        <div class="card-body">
-                                <p class="card-text">
-                                    {% include "base/post_item.html" with post=post %}
-                                    {% for comment in comments %}
-                                        <a href="{% url 'profile' comment.author %}"><strong class="d-block text-gray-dark">@{{ comment.author }}</strong></a>
-                                        {{ comment.text }}
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="btn-group "></div>
-                                            <!-- Дата публикации  -->
-                                            <small class="text-muted">{{ comment.created }} </small>
-                                        </div>
-                                    {% endfor %}
-                                    {% include "main/comments.html" %}
-                                </p>
-                        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="card mb-3 mt-1 shadow-sm">
+          <div class="card-body">
+            <p class="card-text">
+              {% include "base/post_item.html" with post=post %}
+              {% for comment in comments %}
+                <a href="{% url 'profile' comment.author %}">
+                  <strong class="d-block text-gray-dark">@{{ comment.author }}</strong>
+                </a>
+                {{ comment.text }}
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group ">
+                  </div>
+                  <small class="text-muted">{{ comment.created }} </small>
                 </div>
-     </div>
+              {% endfor %}
+            {% include "main/comments.html" %}
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
-</main>
+  </main>
 {% endblock %}

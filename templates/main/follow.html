@@ -1,19 +1,14 @@
 {% extends "base/base.html" %}
 {% block title %} Подписка {% endblock %}
 {%block content %}
-
-<div class="container">
-  {% include "base/menu.html" with follow=True %}
-  <h1>Последние обновления в подписке</h1>
-  <!-- Вывод ленты записей -->
-    {% for post in page %}
-  <!-- Вот он, новый include! -->
-      {% include "base/post_item.html" with post=post %}
-    {% endfor %}
-</div>
-
-<!-- Вывод паджинатора -->
-    {% if page.has_other_pages %}
-      {% include "base/paginator.html" with items=page paginator=paginator%}
-    {% endif %}
-  {% endblock %}
+  <div class="container">
+    {% include "base/menu.html" with follow=True %}
+    <h1>Последние обновления в подписке</h1>
+      {% for post in page %}
+        {% include "base/post_item.html" with post=post %}
+      {% endfor %}
+  </div>
+  {% if page.has_other_pages %}
+    {% include "base/paginator.html" with items=page paginator=paginator%}
+  {% endif %}
+{% endblock %}
